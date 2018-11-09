@@ -17,6 +17,7 @@ export default class extends Phaser.State {
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
 
         this.deathSound = game.add.audio('fart');
+        this.jumpSound = game.add.audio('boing');
 
         const bannerText = lang.text('welcome')
         let banner = this.add.text(this.world.centerX, this.game.height - 80, bannerText, {
@@ -37,6 +38,7 @@ export default class extends Phaser.State {
 
         var spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         spaceKey.onDown.add(() => {
+            this.jumpSound.play()
             this.mushroom.jump()
         }, this);
 
@@ -77,7 +79,6 @@ export default class extends Phaser.State {
                 this.shouldRestart = true
             }, null, this);
         }
-
 
         if (this.shouldRestart) {
             this.restartGame()
