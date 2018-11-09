@@ -2,11 +2,12 @@ import Phaser from 'phaser'
 
 export default class extends Phaser.Sprite {
   constructor ({ game, x, y, asset }) {
-    super(game, x, y, asset)
-    this.anchor.setTo(0.5)
+    super(game, x, y, 'mushroom')
+    game.physics.arcade.enable(this)
+    this.body.gravity.y = 1000
   }
 
-  update () {
-    this.angle += 1
+  jump() {
+    this.body.velocity.y = -350;
   }
 }

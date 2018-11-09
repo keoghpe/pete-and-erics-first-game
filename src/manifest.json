@@ -11,6 +11,11 @@
       "sizes": "48x48",
       "type": "image/png"
     },
+      {
+      "src": "assets/images/poop.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
     {
       "src": "assets/images/icon-192px.png",
       "sizes": "192x192",
