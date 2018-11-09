@@ -16,6 +16,8 @@ export default class extends Phaser.State {
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
 
+        this.deathSound = game.add.audio('fart');
+
         const bannerText = lang.text('welcome')
         let banner = this.add.text(this.world.centerX, this.game.height - 80, bannerText, {
             font: '40px Bangers',
@@ -44,7 +46,7 @@ export default class extends Phaser.State {
 
         this.score = 0;
         this.labelScore = game.add.text(20, 20, "0",
-            { font: "30px Arial", fill: "#ffffff" });
+            {font: "30px Arial", fill: "#ffffff"});
 
     }
 
@@ -70,12 +72,14 @@ export default class extends Phaser.State {
     update() {
         if (!this.mushroom.inCamera)
             this.restartGame()
-        if(this.mushroom && this.poops) {
-            this.game.physics.arcade.overlap(this.mushroom, this.poops, () => {this.shouldRestart = true}, null, this);
+        if (this.mushroom && this.poops) {
+            this.game.physics.arcade.overlap(this.mushroom, this.poops, () => {
+                this.shouldRestart = true
+            }, null, this);
         }
 
 
-        if(this.shouldRestart) {
+        if (this.shouldRestart) {
             this.restartGame()
         }
     }
@@ -83,7 +87,8 @@ export default class extends Phaser.State {
     restartGame() {
         this.score = 0
         this.labelScore.text = this.score;
-        
+        this.deathSound.play()
+
         this.mushroom.destroy();
         this.mushroom = new Mushroom({
             game: this.game,
@@ -93,8 +98,9 @@ export default class extends Phaser.State {
         })
         this.game.add.existing(this.mushroom)
 
-
-        this.poops.forEach((poop) => {poop.kill()})
+        this.poops.forEach((poop) => {
+            poop.kill()
+        })
         this.shouldRestart = false;
     }
 
